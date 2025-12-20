@@ -13,12 +13,12 @@ const db = new sqlite3.Database('./database.sqlite', (err) => {
 const createTable = `CREATE TABLE IF NOT EXISTS users(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE,
-        password TEXT
-        twofa_secret TEXT
+        password TEXT,
+        twofa_secret TEXT,
         twofa_enabled INTEGER DEFAULT 0)`;
 
 // Execute the SQL statement to create the table
-db.run(createTableSql, function (err) {
+db.run(createTable, function (err) {
     if (err) {
         return console.error('Error creating table:', err.message);
     }
