@@ -35,6 +35,7 @@ Traditional password-based authentication is vulnerable to security risks such a
 
 ## Project Architecture / Flow
 
+```text
 The project is organized into the following structure:
 src/
 ├── server.js        # Application entry point
@@ -49,6 +50,7 @@ src/
     ├── register.html
     ├── verify-2fa.html
     └── dashboard.html
+```
 
 
 
