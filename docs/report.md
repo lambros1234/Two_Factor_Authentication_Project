@@ -36,15 +36,20 @@ Traditional password-based authentication is vulnerable to security risks such a
 ## Project Architecture / Flow
 
 The project is organized into the following structure:
-    src/
-    ├── server.js # Main server file
-    ├── db.js # Database setup
-    ├── routes/ # Route handlers
-    │ ├── auth.js # Registration and login
-    │ └── twofa.js # 2FA verification
-    ├── middleware/ # Middleware functions
-    │ └── authCheck.js # Route protection
-    └── views/ # HTML pages
+src/
+├── server.js        # Application entry point
+├── db.js            # SQLite database initialization
+├── routes/
+│   ├── auth.js      # Registration and password-based login
+│   └── twofa.js     # TOTP enrollment and verification
+├── middleware/
+│   └── authCheck.js # Authentication and 2FA enforcement
+└── views/
+    ├── login.html
+    ├── register.html
+    ├── verify-2fa.html
+    └── dashboard.html
+
 
 
 ### Authentication Flow
