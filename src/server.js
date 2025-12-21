@@ -4,6 +4,7 @@ const path = require('path');
 
 const authRoutes = require('./routes/auth');
 const twofaRoutes = require('./routes/twofa');
+const authCheck = require('./middleware/authCheck'); 
 
 const app = express();
 
@@ -17,9 +18,20 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'views')));
 
+// Public routes
 app.use('/auth', authRoutes);
-app.use('/2fa', twofaRoutes);
+app.use('/2fa', twofaRoutes); // 2FA verification is part of login flow
 
+// Protected routes
+app.get('/dashboard', authCheck, (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'dashboard.html'));
+});
+
+app.get('/account', authCheck, (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'account.html'));
+});
+
+// Default route
 app.get('/', (req, res) => {
   res.redirect('/login.html');
 });

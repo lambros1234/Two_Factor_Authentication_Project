@@ -22,6 +22,7 @@ router.post('/register', async (req, res) => {
   );
 });
 
+// Login
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
 
@@ -42,7 +43,7 @@ router.post('/login', (req, res) => {
 
     req.session.user = user;
 
-    if (user.twofa_enabled) {
+    if (user.twofa_enabled) { // Check for 2FA
       return res.redirect('/verify-2fa.html');
     }
 
