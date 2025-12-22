@@ -68,4 +68,25 @@ src/
 
 ## Implementation Details
 
+### Password Hashing
+
+User passwords are protected using the bcrypt hashing algorithm. During registration, each password is hashed with a unique salt and a configurable number of salt rounds before being stored in the database. This ensures that plaintext passwords are never stored or transmitted.
+
+Bcrypt is a cryptographic hash function designed for password hasing and safe storing in the backend of applications. It runs a complext hashing process, during which a users password is transformed into a fixed-length thread of characters. It uses a one-way hash function, which means that once the passwords is hashedm it can't be reversed to its original form. Every time a user log into their account, bcrypt hashes their passwords again and compares the new hash values stored in the system's memory to check if the passwords match.
+
+Instead of simply hashing the given password, bcrypt adds a random piece of data, called salt, to create unique hash that is almost impossible to break with automated guesses during brute force attacks.
+
+Additionally, bcrypt uses a configurable cost factor, known as salt rounds, which increases the computational effort required to compute each hash. This significantly slows down brute-force and dictionary attacks, making large-scale password cracking impractical even if the database is compromised.
+
+### Session Management
+
+Session management is the process of securely maintaining a user’s authentication state across multiple requests in a web application, despite the stateless nature of the HTTP protocol.
+
+In this project, session management is used to track whether a user has successfully authenticated with a password and, if enabled, completed two-factor authentication. After successful verification, a server-side session is created to store the user’s identity and authentication status, allowing access to protected routes without repeatedly transmitting credentials.
+
+
+### TOTP Enrollment and Verification
+### Middleware-Based Access Control
+### Database Design Considerations
+
 

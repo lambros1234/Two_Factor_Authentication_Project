@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Setup Two-Factor Authentication</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Set up Two-Factor Authentication</h1>
+
+    <p class="welcome-text">
+      Scan the QR code using Google Authenticator, then enter the 6-digit code.
+    </p>
+
+  <div id="qr-wrapper" style="text-align:center;">
+    <p id="qr-loading">Loading QR code…</p>
+
+    <img
+      id="qrcode"
+      alt="QR Code"
+      style="width:200px; margin:20px auto; display:none;"
+    >
+
+    <button
+      type="button"
+      id="refresh-qr"
+      class="secondary-btn"
+      style="display:none;"
+    >
+      Refresh QR
+    </button>
+  </div>
+
+    <form method="POST" action="/2fa/verify-setup">
+      <div class="form-group">
+        <input
+          type="text"
+          name="token"
+          placeholder="6-digit code"
+          inputmode="numeric"
+          pattern="[0-9]{6}"
+          maxlength="6"
+          required
+        >
+      </div>
+      <button>Verify</button>
+    </form>
+  </div>
+
+  <script>
+    const img = document.getElementById('qrcode');
+    const loading = document.getElementById('qr-loading');
+    const refreshBtn = document.getElementById('refresh-qr');
+
+    function loadQR() {
+      loading.style.display = 'block';
+      img.style.display = 'none';
+      refreshBtn.style.display = 'none';
+
+      fetch('/2fa/qr?' + Date.now()) // cache-buster
+        .then(res => res.json())
+        .then(data => {
+          img.src = data.qr;
+          img.style.display = 'block';
+          refreshBtn.style.display = 'inline-block';
+          loading.style.display = 'none';
+        })
+        .catch(() => {
+          loading.innerText = 'Failed to load QR. Try again.';
+        });
+    }
+
+    refreshBtn.addEventListener('click', loadQR);
+
+    loadQR();
+  </script>
+
+</body>
+</html>

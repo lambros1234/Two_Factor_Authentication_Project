@@ -16,24 +16,28 @@ app.use(session({
   saveUninitialized: false
 }));
 
-app.use(express.static(path.join(__dirname, 'views')));
+// Serve static files properly
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Public routes
+// Routes
 app.use('/auth', authRoutes);
-app.use('/2fa', twofaRoutes); // 2FA verification is part of login flow
+app.use('/2fa', twofaRoutes);
 
-// Protected routes
+// Protected pages
 app.get('/dashboard', authCheck, (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'dashboard.html'));
+  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
 app.get('/account', authCheck, (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'account.html'));
+  res.sendFile(path.join(__dirname, 'public', 'account.html'));
 });
 
 // Default route
 app.get('/', (req, res) => {
   res.redirect('/login.html');
 });
+
+app.set('view engine', 'ejs'); 
+app.set('views', path.join(__dirname, 'views')); 
 
 app.listen(3000, () => console.log("Server running at http://localhost:3000"));

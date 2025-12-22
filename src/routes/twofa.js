@@ -5,27 +5,34 @@ const db = require('../db');
 
 const router = express.Router();
 
-// Generate QR Code
 router.get('/setup', (req, res) => {
+  if (!req.session.user) {
+    return res.redirect('/login.html');
+  }
+
   const secret = speakeasy.generateSecret({
     name: `2FA Project (${req.session.user.username})`
   });
 
-  // Store secret temporarily in session
   req.session.temp_secret = secret;
+  req.session.otpauth_url = secret.otpauth_url;
 
-  // Generate QR code image
-  qrcode.toDataURL(secret.otpauth_url, (err, data_url) => {
-    res.send(`
-      <h1>Scan QR Code in Google Authenticator</h1>
-      <img src="${data_url}">
-      <form method="POST" action="/2fa/verify-setup">
-        <input name="token" placeholder="Enter 6-digit code">
-        <button>Verify</button>
-      </form>
-    `);
+  res.sendFile(
+    require('path').join(__dirname, '../public/2fa-setup.html')
+  );
+});
+
+router.get('/qr', (req, res) => {
+  if (!req.session.otpauth_url) {
+    return res.status(400).json({ error: 'No QR available' });
+  }
+
+  qrcode.toDataURL(req.session.otpauth_url, (err, data_url) => {
+    res.json({ qr: data_url });
   });
 });
+
+
 
 // Verify setup
 router.post('/verify-setup', (req, res) => {

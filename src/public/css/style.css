@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #764ba2;
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666;
+}
+
+.switch-form a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.switch-form a:hover {
+    text-decoration: underline;
+}
+.welcome-text {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.primary-link {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border-radius: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.primary-link:hover {
+    background: #764ba2;
+}
+
+.footer {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+}
+.secondary-btn {
+    margin: 8px auto 0;
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    font-size: 12px;
+    background: transparent;
+    color: #7a7a7a;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.secondary-btn:hover {
+    color: #667eea;
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.08);
+}
