@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-
-<!-- NOT FINISHED: if the user has 2FA enabled, show a different message -->
-
 <body>
 
-    <div class="container">
-        <h1>Welcome!</h1>
+  <div class="container dashboard">
 
-        <p class="welcome-text">
-            Your account is active. You can improve your security by enabling
-            two-factor authentication.
-        </p>
+    <main class="dashboard-content">
 
-        <a href="/2fa/setup" class="primary-link">
-            Enable Two-Factor Authentication
-        </a>
-    </div>
+      <div class="card highlight">
+        <h2>Welcome!</h2>
+        <p>You are successfully logged in.</p>
+      </div>
+
+      <div class="card">
+        <h2>Two-Factor Authentication</h2>
+        <p class="status success">Enabled</p>
+        <p>Your account is protected with Time-Based One-Time Passwords (TOTP).</p>
+      </div>
+
+      <div class="card">
+        <h2>Security Status</h2>
+        <ul class="security-list">
+          <li>✔ Password hashed with bcrypt</li>
+          <li>✔ 2FA enabled</li>
+          <li>✔ Session protected</li>
+        </ul>
+      </div>
+
+    </main>
 
     <footer class="footer">
-        <p>&copy; 2024 Two-Factor Authentication. All rights reserved.</p>
+      <p>&copy; 2025 Two-Factor Authentication Project</p>
     </footer>
+
+  </div>
 
 </body>
 </html>

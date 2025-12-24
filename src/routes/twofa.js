@@ -54,7 +54,7 @@ router.post('/verify-setup', (req, res) => {
     [secret.base32, req.session.user.id]
   );
 
-  delete req.session.temp_secret;
+  delete req.session.temp_secret; 
   res.redirect('/dashboard.html');
 });
 
@@ -62,11 +62,12 @@ router.post('/verify-setup', (req, res) => {
 router.post('/verify-login', (req, res) => {
   const { token } = req.body;
 
+  // Retrieve user's 2FA secret from DB
   db.get(
     "SELECT twofa_secret FROM users WHERE id = ?",
     [req.session.user.id],
     (err, user) => {
-      const verified = speakeasy.totp.verify({
+      const verified = speakeasy.totp.verify({ 
         secret: user.twofa_secret,
         encoding: 'base32',
         token

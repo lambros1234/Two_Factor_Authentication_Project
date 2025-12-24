@@ -24,8 +24,8 @@ app.use('/auth', authRoutes);
 app.use('/2fa', twofaRoutes);
 
 // Protected pages
-app.get('/dashboard', authCheck, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+app.get('/2fa-dashboard', authCheck, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', '2fa-dashboard.html'));
 });
 
 app.get('/account', authCheck, (req, res) => {

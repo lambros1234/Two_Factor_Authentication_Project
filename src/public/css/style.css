@@ -11,6 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
 }
 
 .container {
@@ -146,3 +147,87 @@ button:hover {
     border-color: #667eea;
     background: rgba(102, 126, 234, 0.08);
 }
+/* Dashboard layout */
+.dashboard {
+  max-width: 900px;
+}
+
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+  font-size: 32px;
+  color: #333;
+}
+
+
+.dashboard-nav a:hover {
+  text-decoration: underline;
+}
+
+.dashboard-nav .active {
+  color: #333;
+}
+
+/* Main content grid */
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Cards */
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card p {
+  color: #555;
+}
+
+/* Highlight card */
+.card.highlight {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.card.highlight h2,
+.card.highlight p {
+  color: white;
+}
+
+/* Status */
+.status {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.status.success {
+  color: #28a745;
+}
+
+/* Security list */
+.security-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.security-list li {
+  margin-bottom: 8px;
+  color: #444;
+}
+
+

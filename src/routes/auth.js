@@ -7,21 +7,32 @@ const router = express.Router();
 // Register
 // NOT FINISHED: add email field
 router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, email, password } = req.body;
 
-  const saltRounds = 10;
-  const hash = await bcrypt.hash(password, saltRounds);  
+  if (!username || !email || !password) {
+    return res.status(400).send("All fields are required.");
+  }
 
-  // Store user in the database
-  db.run(
-    "INSERT INTO users (username, password) VALUES (?, ?)",
-    [username, hash],
-    (err) => {
-      if (err) return res.send("User already exists.");
-      res.redirect('/login.html');
-    }
-  );
+  try {
+    const saltRounds = 10;
+    const hash = await bcrypt.hash(password, saltRounds);
+
+    db.run(
+      "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
+      [username, email, hash],
+      (err) => {
+        if (err) {
+          return res.send("Username or email already exists.");
+        }
+        res.redirect('/login.html');
+      }
+    );
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Registration error.");
+  }
 });
+
 
 // Login
 router.post('/login', (req, res) => {
@@ -47,7 +58,7 @@ router.post('/login', (req, res) => {
     console.log("Session after login:", req.session.user);
 
 
-    res.redirect('/dashboard.html');
+    res.redirect('/2fa-dashboard.html');
   });
 });
 
