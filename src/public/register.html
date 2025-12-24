@@ -7,9 +7,12 @@
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+  <div id="alert" class="alert" style="display:none;">
+    <span id="alert-message"></span>
+    <button class="alert-close" onclick="closeAlert()">×</button>
+  </div>
   <form action="/auth/register" method="POST">
     <input name="username" type="text" placeholder="username" required>
-    <input name="email" type="email" placeholder="email" required>
     <input name="password" type="password" placeholder="password" required>
     <button>Register</button>
     <div class="switch-form" style="color: aliceblue;">
@@ -17,5 +20,22 @@
       <a href="/login.html" style="color:cornflowerblue;">Login</a>
     </div>
   </form>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const alertBox = document.getElementById('alert');
+    const alertMessage = document.getElementById('alert-message');
+
+    if (params.get('error') === 'user_exists') {
+      alertMessage.textContent =
+        'User already exists. Please choose another username or email.';
+      alertBox.style.display = 'flex';
+    }
+
+    function closeAlert() {
+      alertBox.style.display = 'none';
+    }
+  </script>
+
 </body>
+
 </html>

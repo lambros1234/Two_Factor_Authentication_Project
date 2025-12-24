@@ -5,12 +5,11 @@ const db = require('../db');
 const router = express.Router();
 
 // Register
-// NOT FINISHED: add email field
 router.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
 
   if (!username || !email || !password) {
-    return res.status(400).send("All fields are required.");
+    return res.redirect('/register.html?error=missing_fields');
   }
 
   try {
@@ -18,48 +17,53 @@ router.post('/register', async (req, res) => {
     const hash = await bcrypt.hash(password, saltRounds);
 
     db.run(
-      "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-      [username, email, hash],
+      "INSERT INTO users (username, password) VALUES (?, ?)",
+      [username, hash],
       (err) => {
         if (err) {
-          return res.send("Username or email already exists.");
+          return res.redirect('/register.html?error=user_exists');
         }
-        res.redirect('/login.html');
       }
     );
   } catch (err) {
     console.error(err);
-    res.status(500).send("Registration error.");
+    res.redirect('/register.html?error=server_error');
   }
 });
+
 
 
 // Login
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  db.get("SELECT * FROM users WHERE username = ?", [username], async (err, user) => {
-    if (err) return res.status(500).send("Database error.");
-    if (!user) return res.send("User not found.");
+  if (!username || !password) {
+    return res.redirect('/login.html?error=missing_fields');
+  }
 
-    const valid = await bcrypt.compare(password, user.password);
-    if (!valid) return res.send("Invalid password.");
+  db.get(
+    "SELECT * FROM users WHERE username = ?",
+    [username],
+    async (err, user) => {
+      if (err) return res.redirect('/login.html?error=db_error');
+      if (!user) return res.redirect('/login.html?error=user_not_found');
 
-    // Store minimal info in session
-    req.session.user = {
-      id: user.id,
-      username: user.username,
-      twofa_enabled: user.twofa_enabled
-    };
+      const valid = await bcrypt.compare(password, user.password);
+      if (!valid) return res.redirect('/login.html?error=invalid_password');
 
-    if (user.twofa_enabled) {
-      return res.redirect('/verify-2fa.html');
+      req.session.user = {
+        id: user.id,
+        username: user.username,
+        twofa_enabled: user.twofa_enabled
+      };
+
+      if (user.twofa_enabled) {
+        return res.redirect('/verify-2fa.html');
+      }
+
+      res.redirect('/dashboard.html');
     }
-    console.log("Session after login:", req.session.user);
-
-
-    res.redirect('/2fa-dashboard.html');
-  });
+  );
 });
 
 
