@@ -258,8 +258,8 @@ button:hover {
     font-weight: 600;
     cursor: pointer;
 
-    width: auto !important;      /* 🔑 override form button */
-    padding: 2 !important;       /* 🔑 override form button */
+    width: auto !important;     
+    padding: 2 !important;      
     margin: 0;
     line-height: 1;
 }
@@ -269,4 +269,39 @@ button:hover {
     color: #ffd6d6;
     opacity: 0.8;
 
+}
+/* ===== HEADER ===== */
+.header {
+  width: 100%;
+  background: transparent;
+  padding: 15px 30px; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+
+.logout-btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
 }
