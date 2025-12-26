@@ -122,4 +122,16 @@ By centralizing authentication logic in the middleware, the application avoids d
 
 ### Database Design Considerations
 
+The database design of the system was created with security, simplicity and clarity in mind. 
+
+Tha database stores user credentials and authentication metadata in a dedicated **users** table. Passwords are never stored in plain text. Instead they are hashed using bcrypt algorithm before being saved. This ensures that even if the databse were to be compromised, attackers wouldn't be able to recover the original passwords.
+
+To support 2FA, the database schema includes extra feilds to the track the 2FA state. It includes a **twofa_secret** feild, which stores the Base32-encoded secret required for TOTP generation and verification. This secret is only stored after a user succesfully completes the 2FA setup process. The **twofa_enabled** field is implemented as and integer flag (0 or 1) to indicate whether 2FA is active for a user.
+
+**Users Table Structure:**
+- id (INTEGER, Primary Key)
+- username (TEXT, Unique)
+- password (TEXT, bcrypt hash)
+- twofa_secret (TEXT, nullable)
+- twofa_enabled (INTEGER, default 0)
 
