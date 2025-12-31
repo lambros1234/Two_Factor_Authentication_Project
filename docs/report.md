@@ -135,3 +135,21 @@ To support 2FA, the database schema includes extra feilds to the track the 2FA s
 - twofa_secret (TEXT, nullable)
 - twofa_enabled (INTEGER, default 0)
 
+## Work in Progress and Planned Completion
+
+- The core functionality of the system has been implemented, including:
+  - Secure password hashing using bcrypt
+  - Session-based authentication
+  - TOTP enrollment using QR codes
+  - TOTP verification during login using an authenticator application
+
+- The following aspects are currently under development or planned for future completion:
+  - User interface and usability improvements to enhance the overall user experience
+  - Additional security mechanisms such as rate limiting to protect against brute-force login attempts
+  - Improved session management features, including session expiration and renewal policies
+  - Extended testing to cover edge cases and potential misuse scenarios
+
+- The final stage of the project will focus on:
+  - Polishing the implementation and code structure
+  - Completing technical documentation
+  - Preparing a presentation demonstrating the authentication flow, cryptographic mechanisms, and security benefits of the system
