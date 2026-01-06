@@ -43,7 +43,8 @@ router.post('/verify-setup', (req, res) => {
   const verified = speakeasy.totp.verify({
     secret: secret.base32,
     encoding: 'base32',
-    token
+    token,
+    window: 1
   });
 
   if (!verified) return res.send("Invalid code. Try again.");

@@ -45,12 +45,15 @@ src/
 │   └── twofa.js     # TOTP enrollment and verification
 ├── middleware/
 │   └── authCheck.js # Authentication and 2FA enforcement
-└── views/
-    ├── login.html
-    ├── register.html
-    ├── verify-2fa.html
-    ├── dashboard.html
-    └── 2fa-dashboard.html
+├── public/
+|   ├── login.html
+|   ├── register.html
+|   ├── verify-2fa.html
+|   ├── 2fa-setup.html
+|   ├── dashboard.html
+|   └── 2fa-dashboard.html
+└── security-tests/
+    └── bruteforce-demo.js
 ```
 
 

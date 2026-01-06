@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
-  if (!username || !email || !password) {
+  if (!username || !password) {
     return res.redirect('/register.html?error=missing_fields');
   }
 
@@ -16,15 +16,18 @@ router.post('/register', async (req, res) => {
     const saltRounds = 10;
     const hash = await bcrypt.hash(password, saltRounds);
 
-    db.run(
-      "INSERT INTO users (username, password) VALUES (?, ?)",
-      [username, hash],
-      (err) => {
-        if (err) {
-          return res.redirect('/register.html?error=user_exists');
-        }
+  db.run(
+    "INSERT INTO users (username, password) VALUES (?, ?)",
+    [username, hash],
+    (err) => {
+      if (err) {
+        return res.redirect('/register.html?error=user_exists');
       }
-    );
+
+      return res.redirect('/login.html?registered=success');
+    }
+  );
+
   } catch (err) {
     console.error(err);
     res.redirect('/register.html?error=server_error');
@@ -61,7 +64,7 @@ router.post('/login', (req, res) => {
         return res.redirect('/verify-2fa.html');
       }
 
-      res.redirect('/dashboard.html');
+      res.redirect('/2fa-dashboard.html');
     }
   );
 });
