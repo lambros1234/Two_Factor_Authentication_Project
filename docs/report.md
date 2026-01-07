@@ -151,7 +151,7 @@ To support 2FA, the database schema includes extra feilds to the track the 2FA s
 - twofa_secret (TEXT, nullable)
 - twofa_enabled (INTEGER, default 0)
 
-### Database Design Considerations
+### Security Demonstrations
 To demonstrate the effectiveness of the implemented security mechanisms, controlled attack simulations were performed in a safe testing environment. These demonstrations include:
 - **Brute-force** attempts against password authentication to highloight the effectiveness of bcrypt hashing
 - **Replay attemps** using expired TOTP codes to demonstrate resistance against replay attacks
