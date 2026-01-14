@@ -5,11 +5,14 @@ const db = require('../db');
 
 const router = express.Router();
 
+// 2FA Setup Page
 router.get('/setup', (req, res) => {
+  // Ensure user is logged in
   if (!req.session.user) {
     return res.redirect('/login.html');
   }
 
+  // Generate a new secret for the user
   const secret = speakeasy.generateSecret({
     name: `2FA Project (${req.session.user.username})`
   });
@@ -17,12 +20,13 @@ router.get('/setup', (req, res) => {
   req.session.temp_secret = secret;
   req.session.otpauth_url = secret.otpauth_url;
 
-  res.sendFile(
+  res.sendFile( 
     require('path').join(__dirname, '../public/2fa-setup.html')
   );
 });
 
-router.get('/qr', (req, res) => {
+// Generate QR code
+router.get('/qr', (req, res) => { 
   if (!req.session.otpauth_url) {
     return res.status(400).json({ error: 'No QR available' });
   }
@@ -67,14 +71,14 @@ router.post('/verify-login', (req, res) => {
   db.get(
     "SELECT twofa_secret FROM users WHERE id = ?",
     [req.session.user.id],
-    (err, user) => {
+    (err, user) => { 
       const verified = speakeasy.totp.verify({ 
         secret: user.twofa_secret,
         encoding: 'base32',
         token
       });
 
-      if (!verified) return res.send("Incorrect code.");
+      if (!verified) return res.send("Incorrect code."); // Handle invalid token
 
       return res.redirect('/dashboard.html');
     }

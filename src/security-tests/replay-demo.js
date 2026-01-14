@@ -21,6 +21,7 @@ async function replayAttack() {
     redirect: "manual"
   });
 
+  // Extract session cookie
   const cookie = loginRes.headers.get("set-cookie");
   if (!cookie) {
     console.log("Login failed");
@@ -42,13 +43,14 @@ async function replayAttack() {
     redirect: "manual"
   });
 
-    const location = replayRes.headers.get("location");
+  const location = replayRes.headers.get("location");
 
-    if (location === "/dashboard.html") {
+  // Check if replay succeeded
+  if (location === "/dashboard.html") {
     console.log("Replay attack succeeded (this should not happen)");
-    } else {
+  } else {
     console.log("Replay attack blocked");
-    }
+  }
 }
 
 replayAttack();

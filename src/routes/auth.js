@@ -12,6 +12,7 @@ router.post('/register', async (req, res) => {
     return res.redirect('/register.html?error=missing_fields');
   }
 
+  // Hash password and store user
   try {
     const saltRounds = 10;
     const hash = await bcrypt.hash(password, saltRounds);
@@ -60,7 +61,7 @@ router.post('/login', (req, res) => {
         twofa_enabled: user.twofa_enabled
       };
 
-      if (user.twofa_enabled) {
+      if (user.twofa_enabled) { // Redirect to 2FA verification if enabled
         return res.redirect('/verify-2fa.html');
       }
 
@@ -69,12 +70,13 @@ router.post('/login', (req, res) => {
   );
 });
 
+// Logout
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).send('Error logging out');
     }
-    res.clearCookie('connect.sid');
+    res.clearCookie('connect.sid'); // Clear session cookie
     res.redirect('/login.html');
   });
 });

