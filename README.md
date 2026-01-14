@@ -1,36 +1,90 @@
 # Two-Factor Authentication (2FA) Using TOTP
 
-This project implements a secure authentication system combining
-password-based login with Time-Based One-Time Passwords (TOTP),
-demonstrating how two-factor authentication is used in real-world systems.
+This project implements a secure Two-Factor Authentication (2FA) system using Time-Based One-Time Passwords (TOTP).
+It demonstrates how cryptographic techniques such as bcrypt password hashing and HMAC-based OTP generation are used in real-world authentication systems.
 
-## Cryptographic Concepts Used
-- Password hashing with bcrypt (adaptive hashing, per-user salt)
-- Time-Based One-Time Passwords (RFC 6238)
-- HMAC-based OTP generation
-- Secure secret key provisioning via QR codes
+The project was developed as part of the Cryptography and Security course.
 
-## Current Progress
-- User registration and login implemented
-- Secure password hashing with bcrypt
-- SQLite database for credential storage
-- Initial 2FA flow design
-- Middleware for route protection
+## Features
+- User registration and login with bcrypt-hashed passwords
+- Time-Based One-Time Password (TOTP) authentication
+- QR-code enrollment for authenticator apps (Google Authenticator)
+- Session-based authentication and access control
+- Middleware-protected routes
+- Security demonstration scripts (brute-force and replay attacks)
 
-## Planned Features
-- QR-code-based TOTP enrollment (Google Authenticator)
-- OTP verification during login
-- Session-based 2FA verification
-- Security analysis and attack discussion
+## Technologies Used
+- Node.js
+- Express.js
+- SQLite
+- bcrypt
+- speakeasy
+- qrcode
+- exress-session
 
-## Authentication Flow
-User → Login (password)
-     → Server verifies bcrypt hash
-     → If 2FA enabled → OTP required
-     → TOTP verified (HMAC + time)
-     → Access granted
+## Project Structure
+```text
+src/
+├── server.js        # Application entry point
+├── db.js            # SQLite database initialization
+├── routes/
+│   ├── auth.js      # Registration and login logic
+│   └── twofa.js     # TOTP enrollment and verification
+├── middleware/
+│   └── authCheck.js # Authentication and 2FA enforcement
+├── public/
+│   ├── login.html
+│   ├── register.html
+│   ├── verify-2fa.html
+│   ├── 2fa-setup.html
+│   ├── dashboard.html
+│   └── 2fa-dashboard.html
+└── security-tests/
+    ├── bruteforce-demo.js
+    └── replay-demo.js
+```
 
-## Running the Project
+## Installation and Running the Project
+1. Install dependencies
 ```bash
-npm install
+npm install 
+```
+2. Start the server
+```bash
 node src/server.js
+```
+The application will be available at 
+```bash
+http://localhost:3000
+```
+
+## Security Demonstrations 
+⚠️ Make sure the server is running before executing any security test scripts.
+
+### Brute-force attack simulation
+```bash
+node security-tests/bruteforce-demo.js
+```
+### Replay attack simulation
+```bash
+node security-tests/replay-demo.js
+```
+
+These scripts are provided for educational purposes only and operate on test accounts.
+
+## Documentation
+- The full technical report is available in the docs/folder
+- The report explains:
+     - Cryptographic mechanisms
+     - Authentication flow
+     - Threat model
+     - Security analysis and limitations
+
+## Authors
+- Lampros Chalatsis
+- Konstantinos Pogelis
+
+## Cource Information
+Cource: Cryptography and Security
+Instructor: Marek Ogiela
+Year: 2025-2026
