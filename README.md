@@ -85,6 +85,6 @@ These scripts are provided for educational purposes only and operate on test acc
 - Konstantinos Pogelis
 
 ## Cource Information
-Cource: Cryptography and Security
-Instructor: Marek Ogiela
-Year: 2025-2026
+- Cource: Cryptography and Security
+- Instructor: Marek Ogiela
+- Year: 2025-2026
