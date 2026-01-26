@@ -7,9 +7,16 @@
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+
+  <!-- Alert box -->
+  <div id="alert" class="alert" style="display:none;">
+    <span id="alert-message"></span>
+    <button class="alert-close" onclick="closeAlert()">×</button>
+  </div>
+
   <form action="/auth/login" method="POST">
-    <input name="username" type="text" placeholder="username" required>
-    <input name="password" type="password" placeholder="password" required>
+    <input name="username" type="text" placeholder="Username" required>
+    <input name="password" type="password" placeholder="Password" required>
     <button>Login</button>
 
     <div class="switch-form" style="color: aliceblue;">
@@ -17,4 +24,39 @@
       <a href="/register.html" style="color:cornflowerblue;">Register</a>
     </div>
   </form>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const alertBox = document.getElementById('alert');
+    const alertMessage = document.getElementById('alert-message');
+
+    const error = params.get('error');
+
+    if (error) {
+      alertBox.style.display = 'flex';
+
+      switch (error) {
+        case 'missing_fields':
+          alertMessage.textContent = 'Please fill in all fields.';
+          break;
+        case 'user_not_found':
+          alertMessage.textContent = 'User not found.';
+          break;
+        case 'invalid_password':
+          alertMessage.textContent = 'Incorrect password.';
+          break;
+        case 'db_error':
+          alertMessage.textContent = 'Database error. Please try again later.';
+          break;
+        default:
+          alertMessage.textContent = 'Login failed.';
+      }
+    }
+
+    function closeAlert() {
+      alertBox.style.display = 'none';
+    }
+  </script>
+
 </body>
+</html>
